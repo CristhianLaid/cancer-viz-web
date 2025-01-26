@@ -1,0 +1,18 @@
+
+# Base image for  Node.js
+FROM node:18
+
+WORKDIR $DOCKER_WORKDIR
+
+COPY package*.json ./
+
+# Install package.json
+RUN npm install 
+
+COPY . .
+
+# Exponer puerto
+EXPOSE $DOCKER_PORT
+
+# Iniciar la aplicacion en modo de desarrollo
+CMD [ "npm", "run", "dev" ]
