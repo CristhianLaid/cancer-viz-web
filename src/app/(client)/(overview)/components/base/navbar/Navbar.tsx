@@ -1,5 +1,12 @@
 import { Dna } from "lucide-react";
 import Link from "next/link";
+import { NavItem } from "./NavItem";
+
+
+const navLinks = [
+  { href: "/cancerviz/dashboard/graphs", label: "Gráficas" },
+  { href: "/cancerviz/dashboard/samples", label: "Muestras" },
+];
 
 export const Navbar = () => {
   return (
@@ -14,12 +21,9 @@ export const Navbar = () => {
           </Link>
           <nav>
             <ul className="flex space-x-6">
-              <li>
-                <Link className="text-sm font-medium text-gray-500 hover:text-black" href="/cancerviz/dashboard/graphs">Gráficas</Link>
-              </li>
-              <li>
-                <Link className="text-sm font-medium text-gray-500 hover:text-black" href="/cancerviz/dashboard/samples">Muestras</Link>
-              </li>
+              {navLinks.map((navLink) =>(
+                <NavItem {...navLink} key={navLink.label}/>
+              ))}
             </ul>
           </nav>
         </div>
