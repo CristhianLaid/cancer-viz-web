@@ -1,6 +1,6 @@
 import { Button } from "@/ui/shadcn/button";
 import { Filter, X } from "lucide-react";
-import { motion } from "motion/react";
+import { motion } from "framer-motion";
 
 export const SidebarCancerviz = ({
   isOpen,
@@ -11,16 +11,22 @@ export const SidebarCancerviz = ({
 }) => {
   return (
     <motion.aside
+      initial={{ x: "-100%" }}
+      animate={{ x: isOpen ? 0 : "0" }}
+      exit={{ x: "-100%" }}
+      transition={{
+        type: "spring",
+        stiffness: 100,
+        damping: 15,
+      }}
       className={`
         fixed md:sticky top-0 z-20 
-        h-screen bg-white 
-        ${isOpen ? "w-[250px]" : "md:w-20"}
+        h-screen
+        bg-white 
         shadow-lg md:shadow-none
+        ${isOpen ? "w-[250px]" : "w-0 md:w-20"}
+        overflow-hidden
       `}
-      initial={{ x: -250 }}
-      animate={{ x: isOpen ? 0 : -250 }}
-      exit={{ x: -250 }}
-      transition={{ type: "spring", stiffness: 300, damping: 30 }}
     >
       <div className="p-4">
         <div className="flex items-center justify-between">
@@ -32,7 +38,7 @@ export const SidebarCancerviz = ({
           )}
 
           <button
-            onClick={toggleSidebar}
+            onClick={() => toggleSidebar()}
             className="p-2 rounded-md hover:bg-gray-200 focus:outline-none"
             aria-label={isOpen ? "Cerrar menú" : "Abrir menú"}
           >
@@ -41,7 +47,13 @@ export const SidebarCancerviz = ({
         </div>
 
         {isOpen && (
-          <div className="mt-6 space-y-6">
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="mt-6 space-y-6"
+          >
             <Button
               variant="outline"
               onClick={() => alert("Filtros restablecidos")}
@@ -50,7 +62,7 @@ export const SidebarCancerviz = ({
               <X className="w-5 h-5 mr-2 text-gray-500" />
               Restablecer filtros
             </Button>
-          </div>
+          </motion.div>
         )}
       </div>
     </motion.aside>
