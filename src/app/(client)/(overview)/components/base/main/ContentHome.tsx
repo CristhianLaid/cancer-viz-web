@@ -6,13 +6,10 @@ import { FooterHome } from "./FooterHome";
 
 export const ContentHome = () => {
   return (
-    <>
-      <HeaderSectionHome>
-        <DataFeaturesHome />
-        <TabsContentSectionHome />
-        <ImpactSectionHome />
-      </HeaderSectionHome>
-      <FooterHome />
-    </>
+    <HeaderSectionHome>
+      <DataFeaturesHome />
+      <TabsContentSectionHome />
+      <ImpactSectionHome />
+    </HeaderSectionHome>
   );
 };

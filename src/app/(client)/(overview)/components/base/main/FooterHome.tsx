@@ -1,6 +1,6 @@
 export const FooterHome = () => {
   return (
-    <footer className="border-t mt-12">
+    <footer className="border-t mt-0">
       <div className="container mx-auto px-4 py-8 flex flex-col md:flex-row justify-between items-center">
         <p className="text-sm text-muted-foreground mb-4 md:mb-0">
           Datos proporcionados por NGDC.cncb.
