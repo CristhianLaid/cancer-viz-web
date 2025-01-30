@@ -22,7 +22,7 @@ export default function TabsContentSectionHome() {
         >
           <p className="text-sm text-muted-foreground mb-4">
             Los datos presentados en esta plataforma se obtuvieron de NGDC.cncb,
-            una fuente confiable de información genómica. Nuestro equipo ha
+            una fuente confiable de información genómica. El equipo de NDGC ha
             procesado y organizado estos datos para facilitar su exploración y
             análisis, asegurando la más alta calidad y relevancia para la
             investigación del cáncer.

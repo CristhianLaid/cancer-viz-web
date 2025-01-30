@@ -18,7 +18,7 @@ export const DataFeaturesHome = () => {
       </CardSimple>
       <CardSimple icon={Search} title="Búsqueda Avanzada">
         <p className="text-sm text-muted-foreground">
-          Utilice herramientas de búsqueda y filtrado para encontrar datos
+          Utilice herramientas de filtrado para encontrar datos
           específicos.
         </p>
       </CardSimple>
