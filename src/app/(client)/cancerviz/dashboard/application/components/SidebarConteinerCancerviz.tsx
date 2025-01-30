@@ -1,9 +1,9 @@
 "use client"
 
-import { useSidebarCancerviz } from "../../application/hooks/useSidebarCancerviz";
-import { BackdropCancerviz } from "./BackdropCancerviz";
-import { MobileToggleButtonCancerviz } from "./MobileToggleButtonCancerviz";
-import { SidebarCancerviz } from "./SidebarCancerviz";
+import { useSidebarCancerviz } from "../hooks/useSidebarCancerviz";
+import { BackdropCancerviz } from "./views/sidebar/BackdropCancerviz";
+import { MobileToggleButtonCancerviz } from "./views/sidebar/MobileToggleButtonCancerviz";
+import { SidebarCancerviz } from "./views/sidebar/SidebarCancerviz";
 
 
 export const SidebarConteinerCancerviz = () => {

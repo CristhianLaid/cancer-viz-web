@@ -1,5 +1,5 @@
-import { SidebarConteinerCancerviz } from "../domain/components/SidebarConteinerCancerviz";
-import { GraphSection } from "./domain/components/GraphSection";
+import { SidebarConteinerCancerviz } from "../application/components/SidebarConteinerCancerviz";
+import { GraphSection } from "./application/components/GraphSection";
 
 export default function Page() {
   return (
