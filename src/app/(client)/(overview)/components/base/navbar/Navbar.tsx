@@ -4,8 +4,8 @@ import { NavItem } from "./NavItem";
 
 
 const navLinks = [
-  { href: "/cancerviz/dashboard/graphs", label: "Gráficas" },
-  { href: "/cancerviz/dashboard/samples", label: "Muestras" },
+  { href: "/cancerviz/visualization/graphs", label: "Gráficas" },
+  { href: "/cancerviz/visualization/samples", label: "Muestras" },
 ];
 
 export const Navbar = () => {
