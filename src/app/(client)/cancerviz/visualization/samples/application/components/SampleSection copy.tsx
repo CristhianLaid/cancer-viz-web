@@ -173,67 +173,74 @@ export const SampleSection = () => {
         </CardTitle>
       </CardHeader>
       <CardContent className="p-0 sm:p-6">
-      <div className="overflow-x-auto"> {/* Contenedor con scroll horizontal */}
-  <Table className="min-w-full table-auto">
-    <TableHeader>
-      <TableRow className="bg-muted/50">
-        <TableHead className="font-semibold">ID</TableHead>
-        <TableHead className="font-semibold hidden sm:table-cell">Project ID</TableHead>
-        <TableHead className="font-semibold">Cancer Type</TableHead>
-        <TableHead className="font-semibold hidden sm:table-cell">Data Source</TableHead> {/* Muestra en dispositivos pequeños */}
-        <TableHead className="font-semibold hidden md:table-cell">Accession No.</TableHead>
-        <TableHead className="font-semibold hidden sm:table-cell">Country</TableHead> {/* Muestra en dispositivos pequeños */}
-        <TableHead className="font-semibold  sm:table-cell">Sample ID</TableHead>
-        <TableHead className="font-semibold  sm:table-cell md:table-cell">Sample Type</TableHead>
-        <TableHead className="font-semibold hidden md:table-cell">Age</TableHead>
-        <TableHead className="font-semibold hidden sm:table-cell">Survival (Months)</TableHead> {/* Muestra en dispositivos pequeños */}
-        <TableHead className="font-semibold hidden md:table-cell">Tumor Size</TableHead>
-        <TableHead className="font-semibold hidden md:table-cell">Metastasis Count</TableHead>
-      </TableRow>
-    </TableHeader>
-    <TableBody>
-      {isLoading ? (
-        Array(5)
-          .fill(0)
-          .map((_, idx) => (
-            <TableRow key={idx} className="hover:bg-muted/50 transition-colors">
-              {Array(12) // Se mantiene el número de celdas al número original
-                .fill(0)
-                .map((_, cellIdx) => (
-                  <TableCell key={cellIdx} className="p-2 sm:p-4">
-                    <Skeleton className="h-4 w-full" />
-                  </TableCell>
-                ))}
-            </TableRow>
-          ))
-      ) : data && data.length > 0 ? (
-        data.map((sample) => (
-          <TableRow key={sample.id} className="hover:bg-muted/50 transition-colors">
-            <TableCell className="font-medium p-2 sm:p-4">{sample.id}</TableCell>
-            <TableCell className="p-2 sm:p-4 hidden sm:table-cell">{sample.projectId}</TableCell>
-            <TableCell className="p-2 sm:p-4">{sample.cancerType}</TableCell>
-            <TableCell className="p-2 sm:p-4 hidden sm:table-cell">{sample.dataSource}</TableCell> {/* Muestra en dispositivos pequeños */}
-            <TableCell className="p-2 sm:p-4 hidden md:table-cell">{sample.accessionNo}</TableCell>
-            <TableCell className="p-2 sm:p-4 hidden sm:table-cell">{sample.country}</TableCell> {/* Muestra en dispositivos pequeños */}
-            <TableCell className="p-2 sm:p-4 sm:table-cell">{sample.sampleId}</TableCell>
-            <TableCell className="p-2 sm:p-4  md:table-cell">{sample.sampleType}</TableCell>
-            <TableCell className="p-2 sm:p-4 hidden md:table-cell">{sample.age}</TableCell>
-            <TableCell className="p-2 sm:p-4 hidden sm:table-cell">{sample.survivalMonths}</TableCell> {/* Muestra en dispositivos pequeños */}
-            <TableCell className="p-2 sm:p-4 hidden md:table-cell">{sample.tumorSize}</TableCell>
-            <TableCell className="p-2 sm:p-4 hidden md:table-cell">{sample.metastasisCount}</TableCell>
-          </TableRow>
-        ))
-      ) : (
-        <TableRow>
-          <TableCell colSpan={12} className="h-24 text-center">
-            No samples available.
-          </TableCell>
-        </TableRow>
-      )}
-    </TableBody>
-  </Table>
-</div>
-
+        <ScrollArea className="rounded-md border bg-card">
+          <div className="relative w-full overflow-auto">
+            <Table>
+              <TableHeader>
+                <TableRow className="bg-muted/50">
+                  {/* <TableHead className="font-semibold">ID</TableHead>
+                  <TableHead className="font-semibold">Project ID</TableHead>
+                  <TableHead className="font-semibold">Cancer Type</TableHead>
+                  <TableHead className="font-semibold">Data Source</TableHead>
+                  <TableHead className="font-semibold">Accession No.</TableHead>
+                  <TableHead className="font-semibold">Country</TableHead>
+                  <TableHead className="font-semibold">Sample ID</TableHead>
+                  <TableHead className="font-semibold">Sample Type</TableHead>
+                  <TableHead className="font-semibold">Age</TableHead>
+                  <TableHead className="font-semibold">Survival (Months)</TableHead>
+                  <TableHead className="font-semibold">Tumor Size</TableHead>
+                  <TableHead className="font-semibold">Metastasis Count</TableHead> */}
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {isLoading ? (
+                  Array(5)
+                    .fill(0)
+                    .map((_, idx) => (
+                      <TableRow
+                        key={idx}
+                        className="hover:bg-muted/50 transition-colors"
+                      >
+                        {Array(12)
+                          .fill(0)
+                          .map((_, cellIdx) => (
+                            <TableCell key={cellIdx} className="p-2 sm:p-4">
+                              <Skeleton className="h-4 w-full" />
+                            </TableCell>
+                          ))}
+                      </TableRow>
+                    ))
+                ) : data && data.length > 0 ? (
+                  data.map((sample) => (
+                    <TableRow
+                      key={sample.id}
+                      className="hover:bg-muted/50 transition-colors"
+                    >
+                      {/* <TableCell className="font-medium p-2 sm:p-4">{sample.id}</TableCell>
+                      <TableCell className="p-2 sm:p-4">{sample.projectId}</TableCell>
+                      <TableCell className="p-2 sm:p-4">{sample.cancerType}</TableCell>
+                      <TableCell className="p-2 sm:p-4">{sample.dataSource}</TableCell>
+                      <TableCell className="p-2 sm:p-4">{sample.accessionNo}</TableCell>
+                      <TableCell className="p-2 sm:p-4">{sample.country}</TableCell>
+                      <TableCell className="p-2 sm:p-4">{sample.sampleId}</TableCell>
+                      <TableCell className="p-2 sm:p-4">{sample.sampleType}</TableCell>
+                      <TableCell className="p-2 sm:p-4">{sample.age}</TableCell>
+                      <TableCell className="p-2 sm:p-4">{sample.survivalMonths}</TableCell>
+                      <TableCell className="p-2 sm:p-4">{sample.tumorSize}</TableCell>
+                      <TableCell className="p-2 sm:p-4">{sample.metastasisCount}</TableCell> */}
+                    </TableRow>
+                  ))
+                ) : (
+                  <TableRow>
+                    <TableCell colSpan={12} className="h-24 text-center">
+                      No samples available.
+                    </TableCell>
+                  </TableRow>
+                )}
+              </TableBody>
+            </Table>
+          </div>
+        </ScrollArea>
 
         {totalPages && totalPages > 1 && (
           <div className="flex flex-col items-center justify-center mt-4 gap-1 sm:flex-row">

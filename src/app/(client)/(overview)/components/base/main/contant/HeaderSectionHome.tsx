@@ -21,7 +21,7 @@ export const HeaderSectionHome = ({ children }: HeaderSectionProps) => {
           del cáncer.
         </p>
         <ButtonLink
-          href="/cancerviz/dashboard/graphs"
+          href="/cancerviz/visualization/graphs"
           label="Explorar Gráficas"
           icon={ArrowRight}
         />

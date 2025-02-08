@@ -1,4 +1,3 @@
-
 import { SidebarConteinerCancerviz } from "../application/components/SidebarConteinerCancerviz";
 import { SampleSection } from "./application/components/SampleSection";
 
