@@ -28,8 +28,10 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/ui/shadcn/tooltip";
+import { useEffect } from "react";
 
-export const SampleSection = () => {
+
+export const SampleSection = ({ filters }:{ filters: { [key: string]: string } } ) => {
   const {
     data,
     total,
@@ -40,8 +42,18 @@ export const SampleSection = () => {
     offset,
     setOffset,
     setLimit,
+    setFilters,
   } = useSample();
   const currentPage = offset / limit;
+
+  useEffect(() => {
+    if (filters && Object.keys(filters).length > 0) {
+      setFilters(filters);
+    } else {
+      setFilters({});
+    }
+  }, [filters, setFilters]);
+  
 
   const handlePageChange = (newPage: number) => {
     setOffset(newPage * 20);
@@ -173,66 +185,66 @@ export const SampleSection = () => {
         </CardTitle>
       </CardHeader>
       <CardContent className="p-0 sm:p-6">
-      <div className="overflow-x-auto"> {/* Contenedor con scroll horizontal */}
-  <Table className="min-w-full table-auto">
-    <TableHeader>
-      <TableRow className="bg-muted/50">
-        <TableHead className="font-semibold">ID</TableHead>
-        <TableHead className="font-semibold hidden sm:table-cell">Project ID</TableHead>
-        <TableHead className="font-semibold">Cancer Type</TableHead>
-        <TableHead className="font-semibold hidden sm:table-cell">Data Source</TableHead> {/* Muestra en dispositivos pequeños */}
-        <TableHead className="font-semibold hidden md:table-cell">Accession No.</TableHead>
-        <TableHead className="font-semibold hidden sm:table-cell">Country</TableHead> {/* Muestra en dispositivos pequeños */}
-        <TableHead className="font-semibold  sm:table-cell">Sample ID</TableHead>
-        <TableHead className="font-semibold  sm:table-cell md:table-cell">Sample Type</TableHead>
-        <TableHead className="font-semibold hidden md:table-cell">Age</TableHead>
-        <TableHead className="font-semibold hidden sm:table-cell">Survival (Months)</TableHead> {/* Muestra en dispositivos pequeños */}
-        <TableHead className="font-semibold hidden md:table-cell">Tumor Size</TableHead>
-        <TableHead className="font-semibold hidden md:table-cell">Metastasis Count</TableHead>
-      </TableRow>
-    </TableHeader>
-    <TableBody>
-      {isLoading ? (
-        Array(5)
-          .fill(0)
-          .map((_, idx) => (
-            <TableRow key={idx} className="hover:bg-muted/50 transition-colors">
-              {Array(12) // Se mantiene el número de celdas al número original
-                .fill(0)
-                .map((_, cellIdx) => (
-                  <TableCell key={cellIdx} className="p-2 sm:p-4">
-                    <Skeleton className="h-4 w-full" />
+        <div className="overflow-x-auto"> {/* Contenedor con scroll horizontal */}
+          <Table className="min-w-full table-auto">
+            <TableHeader>
+              <TableRow className="bg-muted/50">
+                <TableHead className="font-semibold">ID</TableHead>
+                <TableHead className="font-semibold hidden sm:table-cell">Project ID</TableHead>
+                <TableHead className="font-semibold">Cancer Type</TableHead>
+                <TableHead className="font-semibold hidden sm:table-cell">Data Source</TableHead> 
+                <TableHead className="font-semibold hidden md:table-cell">Accession No.</TableHead>
+                <TableHead className="font-semibold hidden sm:table-cell">Country</TableHead>
+                <TableHead className="font-semibold  sm:table-cell">Sample ID</TableHead>
+                <TableHead className="font-semibold  sm:table-cell md:table-cell">Sample Type</TableHead>
+                {/* <TableHead className="font-semibold hidden md:table-cell">Age</TableHead>
+                <TableHead className="font-semibold hidden sm:table-cell">Survival (Months)</TableHead> 
+                <TableHead className="font-semibold hidden md:table-cell">Tumor Size</TableHead>
+                <TableHead className="font-semibold hidden md:table-cell">Metastasis Count</TableHead> */}
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {isLoading ? (
+                Array(5)
+                  .fill(0)
+                  .map((_, idx) => (
+                    <TableRow key={idx} className="hover:bg-muted/50 transition-colors">
+                      {Array(12) // Se mantiene el número de celdas al número original
+                        .fill(0)
+                        .map((_, cellIdx) => (
+                          <TableCell key={cellIdx} className="p-2 sm:p-4">
+                            <Skeleton className="h-4 w-full" />
+                          </TableCell>
+                        ))}
+                    </TableRow>
+                  ))
+              ) : data && data.length > 0 ? (
+                data.map((sample) => (
+                  <TableRow key={sample.id} className="hover:bg-muted/50 transition-colors">
+                    <TableCell className="font-medium p-2 sm:p-4">{sample.id}</TableCell>
+                    <TableCell className="p-2 sm:p-4 hidden sm:table-cell">{sample.projectId}</TableCell>
+                    <TableCell className="p-2 sm:p-4">{sample.cancerType}</TableCell>
+                    <TableCell className="p-2 sm:p-4 hidden sm:table-cell">{sample.dataSource}</TableCell> 
+                    <TableCell className="p-2 sm:p-4 hidden md:table-cell">{sample.accessionNo}</TableCell>
+                    <TableCell className="p-2 sm:p-4 hidden sm:table-cell">{sample.country}</TableCell>
+                    <TableCell className="p-2 sm:p-4 sm:table-cell">{sample.sampleId}</TableCell>
+                    <TableCell className="p-2 sm:p-4  md:table-cell">{sample.sampleType}</TableCell>
+                    {/* <TableCell className="p-2 sm:p-4 hidden md:table-cell">{sample.age}</TableCell>
+                    <TableCell className="p-2 sm:p-4 hidden sm:table-cell">{sample.survivalMonths}</TableCell>
+                    <TableCell className="p-2 sm:p-4 hidden md:table-cell">{sample.tumorSize}</TableCell>
+                    <TableCell className="p-2 sm:p-4 hidden md:table-cell">{sample.metastasisCount}</TableCell> */}
+                  </TableRow>
+                ))
+              ) : (
+                <TableRow>
+                  <TableCell colSpan={12} className="h-24 text-center">
+                    No samples available.
                   </TableCell>
-                ))}
-            </TableRow>
-          ))
-      ) : data && data.length > 0 ? (
-        data.map((sample) => (
-          <TableRow key={sample.id} className="hover:bg-muted/50 transition-colors">
-            <TableCell className="font-medium p-2 sm:p-4">{sample.id}</TableCell>
-            <TableCell className="p-2 sm:p-4 hidden sm:table-cell">{sample.projectId}</TableCell>
-            <TableCell className="p-2 sm:p-4">{sample.cancerType}</TableCell>
-            <TableCell className="p-2 sm:p-4 hidden sm:table-cell">{sample.dataSource}</TableCell> {/* Muestra en dispositivos pequeños */}
-            <TableCell className="p-2 sm:p-4 hidden md:table-cell">{sample.accessionNo}</TableCell>
-            <TableCell className="p-2 sm:p-4 hidden sm:table-cell">{sample.country}</TableCell> {/* Muestra en dispositivos pequeños */}
-            <TableCell className="p-2 sm:p-4 sm:table-cell">{sample.sampleId}</TableCell>
-            <TableCell className="p-2 sm:p-4  md:table-cell">{sample.sampleType}</TableCell>
-            <TableCell className="p-2 sm:p-4 hidden md:table-cell">{sample.age}</TableCell>
-            <TableCell className="p-2 sm:p-4 hidden sm:table-cell">{sample.survivalMonths}</TableCell> {/* Muestra en dispositivos pequeños */}
-            <TableCell className="p-2 sm:p-4 hidden md:table-cell">{sample.tumorSize}</TableCell>
-            <TableCell className="p-2 sm:p-4 hidden md:table-cell">{sample.metastasisCount}</TableCell>
-          </TableRow>
-        ))
-      ) : (
-        <TableRow>
-          <TableCell colSpan={12} className="h-24 text-center">
-            No samples available.
-          </TableCell>
-        </TableRow>
-      )}
-    </TableBody>
-  </Table>
-</div>
+                </TableRow>
+              )}
+            </TableBody>
+          </Table>
+        </div>
 
 
         {totalPages && totalPages > 1 && (
@@ -247,11 +259,10 @@ export const SampleSection = () => {
                 <PaginationItem>
                   <PaginationPrevious
                     onClick={() => handlePageChange(currentPage - 1)}
-                    className={`${
-                      currentPage === 0
+                    className={`${currentPage === 0
                         ? "pointer-events-none opacity-50"
                         : "cursor-pointer hover:bg-muted/50"
-                    } transition-colors`}
+                      } transition-colors`}
                     aria-label="Go to previous page"
                   />
                 </PaginationItem>
@@ -261,11 +272,10 @@ export const SampleSection = () => {
                 <PaginationItem>
                   <PaginationNext
                     onClick={() => handlePageChange(currentPage + 1)}
-                    className={`${
-                      currentPage === totalPages - 1
+                    className={`${currentPage === totalPages - 1
                         ? "pointer-events-none opacity-50"
                         : "cursor-pointer hover:bg-muted/50"
-                    } transition-colors`}
+                      } transition-colors`}
                     aria-label="Go to next page"
                   />
                 </PaginationItem>

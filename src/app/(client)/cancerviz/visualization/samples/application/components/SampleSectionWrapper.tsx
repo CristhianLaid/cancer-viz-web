@@ -19,8 +19,6 @@ export const SampleSectionWrapper = () => {
     handleResetFilters,
   } = useFilters();
 
-  console.log(countries)
-
   return (
     <div className="flex">
       <SidebarConteinerCancerviz
@@ -41,8 +39,8 @@ export const SampleSectionWrapper = () => {
         }
         onResetFilters={handleResetFilters} // <- Lo pasamos al sidebar
       />
-      {/* <SampleSection filters={selectedFilters} /> */}
-      <SampleSection />
+      <SampleSection filters={selectedFilters} />
+
 
     </div>
   );

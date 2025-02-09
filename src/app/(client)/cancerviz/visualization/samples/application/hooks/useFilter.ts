@@ -56,7 +56,7 @@ export const useFilters = () => {
   const handleFilterChange = (key: string, value: string) => {
     setSelectedFilters((prev) => ({
       ...prev,
-      [key]: value,
+      [key]: value === "all" ? "" : value,
     }));
   };
 

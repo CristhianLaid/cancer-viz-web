@@ -1,3 +1,5 @@
+import React from 'react';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/ui/shadcn/select';
 
 interface FilterOption {
   id: number;
@@ -36,85 +38,122 @@ export const SelectSampleFilter: React.FC<SelectSampleFilterProps> = ({
 
   return (
     <div className="space-y-4">
-      <label className="block">
-        <span>País:</span>
-        <select
-          value={selectedFilters.country}
-          onChange={(e) => onFilterChange("country", e.target.value)}
-          className="w-full border rounded p-2"
-        >
-          <option value="">Selecciona un país</option>
-          {filters.countries.map((country) => (
-            <option key={country.id} value={country.id}>
-              {country.name}
-            </option>
-          ))}
-        </select>
-      </label>
+      <div className="flex flex-col lg:flex-row lg:flex-wrap lg:gap-4">
+        {/* País */}
+        <div className="flex-1 min-w-[200px] lg:max-w-[300px]">
+          <label className="block mb-2">País:</label>
+          <Select
+            value={selectedFilters.country}
+            onValueChange={(value) => onFilterChange("country", value)}
+          >
+            <SelectTrigger>
+              <SelectValue placeholder="Selecciona un país" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem key="all" value="all">
+                Todos
+              </SelectItem>
+              {filters.countries.map((country) => (
+                <SelectItem key={country.id} value={country.name}>
+                  {country.name}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
 
-      <label className="block">
-        <span>Tipo de cáncer:</span>
-        <select
-          value={selectedFilters.cancerType}
-          onChange={(e) => onFilterChange("cancerType", e.target.value)}
-          className="w-full border rounded p-2"
-        >
-          <option value="">Selecciona un tipo de cáncer</option>
-          {filters.cancerTypes.map((cancerType) => (
-            <option key={cancerType.id} value={cancerType.id}>
-              {cancerType.name}
-            </option>
-          ))}
-        </select>
-      </label>
+        {/* Tipo de Cáncer */}
+        <div className="flex-1 min-w-[200px] lg:max-w-[300px]">
+          <label className="block mb-2">Tipo de cáncer:</label>
+          <Select
+            value={selectedFilters.cancerType}
+            onValueChange={(value) => onFilterChange("cancerType", value)}
+          >
+            <SelectTrigger>
+              <SelectValue placeholder="Selecciona un tipo de cáncer" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem key="all" value="all">
+                Todos
+              </SelectItem>
+              {filters.cancerTypes.map((cancerType) => (
+                <SelectItem key={cancerType.id} value={cancerType.name}>
+                  {cancerType.name}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
 
-      <label className="block">
-        <span>Fuente de datos:</span>
-        <select
-          value={selectedFilters.dataSource}
-          onChange={(e) => onFilterChange("dataSource", e.target.value)}
-          className="w-full border rounded p-2"
-        >
-          <option value="">Selecciona una fuente de datos</option>
-          {filters.dataSources.map((dataSource) => (
-            <option key={dataSource.id} value={dataSource.id}>
-              {dataSource.name}
-            </option>
-          ))}
-        </select>
-      </label>
+        {/* Fuente de Datos */}
+        <div className="flex-1 min-w-[200px] lg:max-w-[300px]">
+          <label className="block mb-2">Fuente de datos:</label>
+          <Select
+            value={selectedFilters.dataSource}
+            onValueChange={(value) => onFilterChange("dataSource", value)}
+          >
+            <SelectTrigger>
+              <SelectValue placeholder="Selecciona una fuente de datos" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem key="all" value="all">
+                Todos
+              </SelectItem>
+              {filters.dataSources.map((dataSource) => (
+                <SelectItem key={dataSource.id} value={dataSource.name}>
+                  {dataSource.name}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
 
-      <label className="block">
-        <span>Protocolo de construcción:</span>
-        <select
-          value={selectedFilters.constructionProtocol}
-          onChange={(e) => onFilterChange("constructionProtocol", e.target.value)}
-          className="w-full border rounded p-2"
-        >
-          <option value="">Selecciona un protocolo</option>
-          {filters.constructionProtocols.map((protocol) => (
-            <option key={protocol.id} value={protocol.id}>
-              {protocol.name}
-            </option>
-          ))}
-        </select>
-      </label>
+        {/* Protocolo de Construcción */}
+        <div className="flex-1 min-w-[200px] lg:max-w-[300px]">
+          <label className="block mb-2">Protocolo de construcción:</label>
+          <Select
+            value={selectedFilters.constructionProtocol}
+            onValueChange={(value) => onFilterChange("constructionProtocol", value)}
+          >
+            <SelectTrigger>
+              <SelectValue placeholder="Selecciona un protocolo" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem key="all" value="all">
+                Todos
+              </SelectItem>
+              {filters.constructionProtocols.map((protocol) => (
+                <SelectItem key={protocol.id} value={protocol.name}>
+                  {protocol.name}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
 
-      <label className="block">
-        <span>Tipo de muestra:</span>
-        <select
-          value={selectedFilters.sampleType}
-          onChange={(e) => onFilterChange("sampleType", e.target.value)}
-          className="w-full border rounded p-2"
-        >
-          <option value="">Selecciona un tipo de muestra</option>
-          {filters.sampleTypes.map((sampleType) => (
-            <option key={sampleType.id} value={sampleType.id}>
-              {sampleType.name}
-            </option>
-          ))}
-        </select>
-      </label>
+        {/* Tipo de Muestra */}
+        <div className="flex-1 min-w-[200px] lg:max-w-[300px]">
+          <label className="block mb-2">Tipo de muestra:</label>
+          <Select
+            value={selectedFilters.sampleType}
+            onValueChange={(value) => onFilterChange("sampleType", value)}
+          >
+            <SelectTrigger>
+              <SelectValue placeholder="Selecciona un tipo de muestra" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem key="all" value="all">
+                Todos
+              </SelectItem>
+              {filters.sampleTypes.map((sampleType) => (
+                <SelectItem key={sampleType.id} value={sampleType.name}>
+                  {sampleType.name}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+      </div>
     </div>
   );
 };

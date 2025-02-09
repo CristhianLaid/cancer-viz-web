@@ -16,11 +16,19 @@ export const useSample = () => {
     setError(null);
 
     try {
-      const result = await sampleApiService.getSamplesFromApi({
-        ...filters,
+      // Filtrar los filtros vacíos para no enviarlos en la petición
+      const activeFilters = Object.fromEntries(
+        Object.entries(filters).filter(([_, value]) => value !== "")
+      );
+
+      const queryParams = {
+        ...activeFilters, 
         limit,
         offset,
-      });
+      };
+
+
+      const result = await sampleApiService.getSamplesFromApi(queryParams);
       setData(result.data);
       setTotal(result.total);
     } catch (error) {
