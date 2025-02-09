@@ -1,23 +1,23 @@
-import { SampleBase } from "../../domain/interfaces/SampleBase";
+import { SampleBase } from "../../domain/interfaces/sampleBase";
 import { SampleApi } from "../api/sampleApi";
 
-
 class SampleService {
-    private readonly sampleApi: SampleApi;
+  private readonly sampleApi: SampleApi;
 
-    constructor(){
-        this.sampleApi = new SampleApi();
-    }
+  constructor() {
+    this.sampleApi = new SampleApi();
+  }
 
-    async getSamplesFromApi(filters: Record<string, any>): Promise<{ data: SampleBase[]; total: number; }>{
-        try {
-            const sampleResponse = await this.sampleApi.getSamples(filters);
-    
-            return sampleResponse;
-        } catch (error) {
-            throw error;
-        }
+  async getSamplesFromApi(
+    filters: Record<string, any>
+  ): Promise<{ data: SampleBase[]; total: number }> {
+    try {
+      const sampleResponse = await this.sampleApi.getSamples(filters);
+      return sampleResponse;
+    } catch (error) {
+      throw error;
     }
+  }
 }
 
 export const sampleApiService = new SampleService();

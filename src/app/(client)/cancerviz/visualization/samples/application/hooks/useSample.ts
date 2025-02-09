@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { SampleBase } from "../../domain/interfaces/SampleBase";
 import { sampleApiService } from "../../infrastructure/services/sampleService";
+import { SampleBase } from "../../domain/interfaces";
 
 export const useSample = () => {
   const [filters, setFilters] = useState<{ [key: string]: string }>({});
