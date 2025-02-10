@@ -1,9 +1,9 @@
 "use client"
 
 import { useFilters } from "../hooks/useFilter";
-import SampleSection from "./SampleSection";
 import { SidebarConteinerCancerviz } from "../../../application/components/SidebarConteinerCancerviz";
 import { SelectSampleFilter } from "./SelectSampleFilter";
+import { SampleSection } from "./SampleSection";
 
 export const SampleSectionWrapper = () => {
   const {
