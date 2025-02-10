@@ -29,9 +29,10 @@ import {
   TooltipTrigger,
 } from "@/ui/shadcn/tooltip";
 import { useEffect } from "react";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/ui/shadcn/select";
 
 
-export const SampleSection = ({ filters }:{ filters: { [key: string]: string } } ) => {
+export const SampleSection = ({ filters }: { filters: { [key: string]: string } }) => {
   const {
     data,
     total,
@@ -53,7 +54,7 @@ export const SampleSection = ({ filters }:{ filters: { [key: string]: string } }
       setFilters({});
     }
   }, [filters, setFilters]);
-  
+
 
   const handlePageChange = (newPage: number) => {
     setOffset(newPage * 20);
@@ -161,11 +162,11 @@ export const SampleSection = ({ filters }:{ filters: { [key: string]: string } }
   }
 
   return (
-    <Card className="w-full">
-      <CardHeader className="p-4 sm:p-6">
-        <CardTitle className="text-xl sm:text-2xl font-bold flex justify-between items-center">
+    <div className="w-full shadow-sm border border-border bg-white">
+      <div className="px-6 py-5 border-b border-border">
+        <div className="text-xl sm:text-2xl font-bold flex justify-between items-center">
           <div className="flex items-center gap-2">
-            <Database className="h-5 w-5 text-muted-foreground" />
+            <Database className="h-5 w-5 text-primary/80" />
             <span>Sample Data</span>
           </div>
           {total && (
@@ -182,62 +183,50 @@ export const SampleSection = ({ filters }:{ filters: { [key: string]: string } }
               </Tooltip>
             </TooltipProvider>
           )}
-        </CardTitle>
-      </CardHeader>
-      <CardContent className="p-0 sm:p-6">
-        <div className="overflow-x-auto"> {/* Contenedor con scroll horizontal */}
-          <Table className="min-w-full table-auto">
+        </div>
+      </div>
+      <div className="w-full">
+        <div className="overflow-x-auto">
+          <Table className="w-full [&_tr:last-child]:border-0">
             <TableHeader>
-              <TableRow className="bg-muted/50">
-                <TableHead className="font-semibold">ID</TableHead>
-                <TableHead className="font-semibold hidden sm:table-cell">Project ID</TableHead>
-                <TableHead className="font-semibold">Cancer Type</TableHead>
-                <TableHead className="font-semibold hidden sm:table-cell">Data Source</TableHead> 
-                <TableHead className="font-semibold hidden md:table-cell">Accession No.</TableHead>
-                <TableHead className="font-semibold hidden sm:table-cell">Country</TableHead>
-                <TableHead className="font-semibold  sm:table-cell">Sample ID</TableHead>
-                <TableHead className="font-semibold  sm:table-cell md:table-cell">Sample Type</TableHead>
-                {/* <TableHead className="font-semibold hidden md:table-cell">Age</TableHead>
-                <TableHead className="font-semibold hidden sm:table-cell">Survival (Months)</TableHead> 
-                <TableHead className="font-semibold hidden md:table-cell">Tumor Size</TableHead>
-                <TableHead className="font-semibold hidden md:table-cell">Metastasis Count</TableHead> */}
+              <TableRow className="hover:bg-transparent">
+                <TableHead className="bg-slate-50 font-medium text-slate-600 h-11">ID</TableHead>
+                <TableHead className="bg-slate-50 font-medium text-slate-600 hidden sm:table-cell h-11">Project ID</TableHead>
+                <TableHead className="bg-slate-50 font-medium text-slate-600 h-11">Cancer Type</TableHead>
+                <TableHead className="bg-slate-50 font-medium text-slate-600 hidden sm:table-cell h-11">Data Source</TableHead>
+                <TableHead className="bg-slate-50 font-medium text-slate-600 hidden md:table-cell h-11">Accession No.</TableHead>
+                <TableHead className="bg-slate-50 font-medium text-slate-600 hidden sm:table-cell h-11">Country</TableHead>
+                <TableHead className="bg-slate-50 font-medium text-slate-600 sm:table-cell h-11">Sample ID</TableHead>
+                <TableHead className="bg-slate-50 font-medium text-slate-600 sm:table-cell md:table-cell h-11">Sample Type</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {isLoading ? (
-                Array(5)
-                  .fill(0)
-                  .map((_, idx) => (
-                    <TableRow key={idx} className="hover:bg-muted/50 transition-colors">
-                      {Array(12) // Se mantiene el número de celdas al número original
-                        .fill(0)
-                        .map((_, cellIdx) => (
-                          <TableCell key={cellIdx} className="p-2 sm:p-4">
-                            <Skeleton className="h-4 w-full" />
-                          </TableCell>
-                        ))}
-                    </TableRow>
-                  ))
+                Array(5).fill(0).map((_, idx) => (
+                  <TableRow key={idx}>
+                    {Array(8).fill(0).map((_, cellIdx) => (
+                      <TableCell key={cellIdx} className="py-3 px-4">
+                        <Skeleton className="h-4 w-full" />
+                      </TableCell>
+                    ))}
+                  </TableRow>
+                ))
               ) : data && data.length > 0 ? (
                 data.map((sample) => (
-                  <TableRow key={sample.id} className="hover:bg-muted/50 transition-colors">
-                    <TableCell className="font-medium p-2 sm:p-4">{sample.id}</TableCell>
-                    <TableCell className="p-2 sm:p-4 hidden sm:table-cell">{sample.projectId}</TableCell>
-                    <TableCell className="p-2 sm:p-4">{sample.cancerType}</TableCell>
-                    <TableCell className="p-2 sm:p-4 hidden sm:table-cell">{sample.dataSource}</TableCell> 
-                    <TableCell className="p-2 sm:p-4 hidden md:table-cell">{sample.accessionNo}</TableCell>
-                    <TableCell className="p-2 sm:p-4 hidden sm:table-cell">{sample.country}</TableCell>
-                    <TableCell className="p-2 sm:p-4 sm:table-cell">{sample.sampleId}</TableCell>
-                    <TableCell className="p-2 sm:p-4  md:table-cell">{sample.sampleType}</TableCell>
-                    {/* <TableCell className="p-2 sm:p-4 hidden md:table-cell">{sample.age}</TableCell>
-                    <TableCell className="p-2 sm:p-4 hidden sm:table-cell">{sample.survivalMonths}</TableCell>
-                    <TableCell className="p-2 sm:p-4 hidden md:table-cell">{sample.tumorSize}</TableCell>
-                    <TableCell className="p-2 sm:p-4 hidden md:table-cell">{sample.metastasisCount}</TableCell> */}
+                  <TableRow key={sample.id} className="hover:bg-slate-50/60 transition-colors">
+                    <TableCell className="py-3 px-4">{sample.id}</TableCell>
+                    <TableCell className="py-3 px-4 hidden sm:table-cell">{sample.projectId}</TableCell>
+                    <TableCell className="py-3 px-4">{sample.cancerType}</TableCell>
+                    <TableCell className="py-3 px-4 hidden sm:table-cell">{sample.dataSource}</TableCell>
+                    <TableCell className="py-3 px-4 hidden md:table-cell">{sample.accessionNo}</TableCell>
+                    <TableCell className="py-3 px-4 hidden sm:table-cell">{sample.country}</TableCell>
+                    <TableCell className="py-3 px-4 sm:table-cell">{sample.sampleId}</TableCell>
+                    <TableCell className="py-3 px-4 md:table-cell">{sample.sampleType}</TableCell>
                   </TableRow>
                 ))
               ) : (
                 <TableRow>
-                  <TableCell colSpan={12} className="h-24 text-center">
+                  <TableCell colSpan={12} className="h-24 text-center text-slate-500">
                     No samples available.
                   </TableCell>
                 </TableRow>
@@ -246,22 +235,36 @@ export const SampleSection = ({ filters }:{ filters: { [key: string]: string } }
           </Table>
         </div>
 
-
         {totalPages && totalPages > 1 && (
-          <div className="flex flex-col items-center justify-center mt-4 gap-1 sm:flex-row">
-            <div className="flex items-center space-x-2">
-              <p className="text-sm text-muted-foreground">
-                Page {currentPage + 1} of {totalPages}
-              </p>
+          <div className="flex flex-col items-center justify-center px-6 py-4 gap-1 sm:flex-row border-t border-border bg-slate-50/50">
+            <div className="flex items-center justify-between p-4 bg-white shadow-sm rounded-lg">
+              <div className="flex items-center gap-3">
+                <span className="text-sm font-medium text-slate-700">Show:</span>
+                <Select value={limit.toString()} onValueChange={handleLimitChange}>
+                  <SelectTrigger className="w-24 border border-slate-300 rounded-md shadow-sm">
+                    <SelectValue placeholder="20" />
+                  </SelectTrigger>
+                  <SelectContent className="bg-white shadow-md rounded-md">
+                    <SelectItem value="10">10</SelectItem>
+                    <SelectItem value="20">20</SelectItem>
+                    <SelectItem value="50">50</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="text-sm font-medium text-slate-700">
+                Page <span className="font-semibold">{currentPage + 1}</span> of{" "}
+                <span className="font-semibold">{totalPages}</span>
+              </div>
             </div>
+
             <Pagination>
               <PaginationContent className="flex flex-wrap justify-center sm:justify-start">
                 <PaginationItem>
                   <PaginationPrevious
                     onClick={() => handlePageChange(currentPage - 1)}
                     className={`${currentPage === 0
-                        ? "pointer-events-none opacity-50"
-                        : "cursor-pointer hover:bg-muted/50"
+                      ? "pointer-events-none opacity-50"
+                      : "cursor-pointer hover:bg-slate-100"
                       } transition-colors`}
                     aria-label="Go to previous page"
                   />
@@ -273,8 +276,8 @@ export const SampleSection = ({ filters }:{ filters: { [key: string]: string } }
                   <PaginationNext
                     onClick={() => handlePageChange(currentPage + 1)}
                     className={`${currentPage === totalPages - 1
-                        ? "pointer-events-none opacity-50"
-                        : "cursor-pointer hover:bg-muted/50"
+                      ? "pointer-events-none opacity-50"
+                      : "cursor-pointer hover:bg-slate-100"
                       } transition-colors`}
                     aria-label="Go to next page"
                   />
@@ -283,8 +286,8 @@ export const SampleSection = ({ filters }:{ filters: { [key: string]: string } }
             </Pagination>
           </div>
         )}
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   );
 };
 

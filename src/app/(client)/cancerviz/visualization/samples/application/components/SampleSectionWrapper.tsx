@@ -20,7 +20,7 @@ export const SampleSectionWrapper = () => {
   } = useFilters();
 
   return (
-    <div className="flex">
+    <div className="flex min-h-screen bg-gray-100">
       <SidebarConteinerCancerviz
         ComponentselecteFilters={
           <SelectSampleFilter
@@ -37,11 +37,11 @@ export const SampleSectionWrapper = () => {
             error={error}
           />
         }
-        onResetFilters={handleResetFilters} // <- Lo pasamos al sidebar
+        onResetFilters={handleResetFilters}
       />
-      <SampleSection filters={selectedFilters} />
-
-
+      <div className="flex-1 p-4 md:p-6">
+        <SampleSection filters={selectedFilters} />
+      </div>
     </div>
   );
 };
