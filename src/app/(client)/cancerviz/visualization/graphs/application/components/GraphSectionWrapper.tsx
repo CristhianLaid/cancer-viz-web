@@ -1,35 +1,29 @@
 "use client"
 
-import { useFilters } from "../hooks/useFilter";
 import { SidebarConteinerCancerviz } from "../../../application/components/SidebarConteinerCancerviz";
-import { SelectSampleFilter } from "./SampleSectionFilter";
-import { SampleSection } from "./SampleSection";
+import { useFilters } from "../hooks/useFiltre";
+import { GraphSection } from "./GraphSection";
+import { SelectGraphFilter } from "./SampleSectionFilter";
 
-export const SampleSectionWrapper = () => {
+
+export const GraphSectionWrapper = () => {
   const {
     countries,
-    cancerTypes,
     dataSources,
-    constructionProtocols,
-    sampleTypes,
     isLoading,
     error,
     selectedFilters,
     handleFilterChange,
     handleResetFilters,
   } = useFilters();
-
   return (
     <div className="flex min-h-screen bg-gray-100">
       <SidebarConteinerCancerviz
         ComponentselecteFilters={
-          <SelectSampleFilter
+          <SelectGraphFilter
             filters={{
               countries,
-              cancerTypes,
               dataSources,
-              constructionProtocols,
-              sampleTypes,
             }}
             selectedFilters={selectedFilters}
             onFilterChange={handleFilterChange}
@@ -40,10 +34,10 @@ export const SampleSectionWrapper = () => {
         onResetFilters={handleResetFilters}
       />
       <div className="flex-1 p-4 md:p-6">
-        <SampleSection filters={selectedFilters} />
+        <GraphSection />
       </div>
     </div>
   );
 };
 
-export default SampleSectionWrapper;
+export default GraphSectionWrapper;

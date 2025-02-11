@@ -1,14 +1,7 @@
-import { SidebarConteinerCancerviz } from "../application/components/SidebarConteinerCancerviz";
-import { GraphSection } from "./application/components/GraphSection";
+import GraphSectionWrapper from "./application/components/GraphSectionWrapper";
 
 export default function Page() {
   return (
-    <div className="flex min-h-screen bg-gray-100">
-      <SidebarConteinerCancerviz />
-
-      <div className="flex-1 p-4 md:p-6">
-        <GraphSection />
-      </div>
-    </div>
+    <GraphSectionWrapper/>
   );
 }
