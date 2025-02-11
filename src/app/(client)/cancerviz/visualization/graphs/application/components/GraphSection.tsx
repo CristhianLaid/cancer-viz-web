@@ -1,8 +1,16 @@
 "use client";
 import React, { useState } from "react";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/ui/shadcn/tabs";
+import { ScatterChart } from "./graphics/ScatterChart";
+import { useGraphFilterData } from "../hooks/useGraphFilterData";
+import { CorrelationHeatmap } from "./graphics/CorrelationHeatmap";
+import { PathwayAnalysis } from "./graphics/PathwayAnalysis";
+import { SurvivalAnalysis } from "./graphics/SurvivalAnalysis";
+import { ComparisonRadarChart } from "./graphics/ComparisonRadarChart";
+import { CancerCharacteristicsHeatmap } from "./graphics/CancerCharacteristicsHeatmap";
 
-export const GraphSection = () => {
+export const GraphSection = ({ filters }: { filters: { [key: string]: string } }) => {
+  const { data, isLoading, error } = useGraphFilterData(filters);
   const [activeTab, setActiveTab] = useState("scatter");
 
   return (
@@ -12,8 +20,8 @@ export const GraphSection = () => {
           Visualización Avanzada de Datos Oncológicos
         </h1>
         <p className="text-lg text-gray-600 leading-relaxed max-w-3xl mx-auto md:mx-0">
-          Analiza patrones y tendencias en datos oncológicos a través de visualizaciones 
-          interactivas diseñadas para apoyar la investigación biomédica y la toma de 
+          Analiza patrones y tendencias en datos oncológicos a través de visualizaciones
+          interactivas diseñadas para apoyar la investigación biomédica y la toma de
           decisiones clínicas basadas en evidencia.
         </p>
       </div>
@@ -87,17 +95,82 @@ export const GraphSection = () => {
 
           <div className="p-6 sm:p-8">
             <TabsContent value="scatter" className="space-y-6">
-              <div className="max-w-2xl">
-                <h2 className="text-2xl font-semibold text-gray-900 mb-3">
-                  Distribución de Casos
-                </h2>
-                <p className="text-gray-600 leading-relaxed">
-                  Visualiza cómo se distribuyen los casos de cáncer según distintos parámetros.
-                </p>
-              </div>
-              <div className="h-72 sm:h-80 flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl border border-gray-200">
-                <p className="text-gray-400 font-medium">Aquí irá la Gráfica 1</p>
-              </div>
+              {isLoading ? (
+                <div className="flex justify-center items-center h-[400px] text-gray-500 text-lg">
+                  Cargando datos...
+                </div>
+              ) : !data || data.length === 0 ? (
+                <div className="flex justify-center items-center h-[400px] text-gray-500 text-lg">
+                  No hay datos disponibles para la selección actual.
+                </div>
+              ) : (
+                <ScatterChart data={data} />
+              )}
+            </TabsContent>
+            <TabsContent value="correlation" className="space-y-6">
+              {isLoading ? (
+                <div className="flex justify-center items-center h-[400px] text-gray-500 text-lg">
+                  Cargando datos...
+                </div>
+              ) : !data || data.length === 0 ? (
+                <div className="flex justify-center items-center h-[400px] text-gray-500 text-lg">
+                  No hay datos disponibles para la selección actual.
+                </div>
+              ) : (
+                <CorrelationHeatmap data={data} />
+              )}
+            </TabsContent>
+            <TabsContent value="expression" className="space-y-6">
+              {isLoading ? (
+                <div className="flex justify-center items-center h-[400px] text-gray-500 text-lg">
+                  Cargando datos...
+                </div>
+              ) : !data || data.length === 0 ? (
+                <div className="flex justify-center items-center h-[400px] text-gray-500 text-lg">
+                  No hay datos disponibles para la selección actual.
+                </div>
+              ) : (
+                <CancerCharacteristicsHeatmap data={data} />
+              )}
+            </TabsContent>
+            <TabsContent value="pathway" className="space-y-6">
+              {isLoading ? (
+                <div className="flex justify-center items-center h-[400px] text-gray-500 text-lg">
+                  Cargando datos...
+                </div>
+              ) : !data || data.length === 0 ? (
+                <div className="flex justify-center items-center h-[400px] text-gray-500 text-lg">
+                  No hay datos disponibles para la selección actual.
+                </div>
+              ) : (
+                <PathwayAnalysis data={data} />
+              )}
+            </TabsContent>
+            <TabsContent value="survival" className="space-y-6">
+              {isLoading ? (
+                <div className="flex justify-center items-center h-[400px] text-gray-500 text-lg">
+                  Cargando datos...
+                </div>
+              ) : !data || data.length === 0 ? (
+                <div className="flex justify-center items-center h-[400px] text-gray-500 text-lg">
+                  No hay datos disponibles para la selección actual.
+                </div>
+              ) : (
+                <SurvivalAnalysis data={data} />
+              )}
+            </TabsContent>
+            <TabsContent value="comparison" className="space-y-6">
+              {isLoading ? (
+                <div className="flex justify-center items-center h-[400px] text-gray-500 text-lg">
+                  Cargando datos...
+                </div>
+              ) : !data || data.length === 0 ? (
+                <div className="flex justify-center items-center h-[400px] text-gray-500 text-lg">
+                  No hay datos disponibles para la selección actual.
+                </div>
+              ) : (
+                <ComparisonRadarChart data={data}  />
+              )}
             </TabsContent>
           </div>
         </Tabs>
