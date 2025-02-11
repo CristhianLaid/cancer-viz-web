@@ -15,7 +15,7 @@ export const ButtonFixedButton = ({
 }: IButtonFixedButton) => {
   return (
     <Button 
-      className="fixed bottom-6 left-1/2 -translate-x-1/2 z-20 p-3 rounded-full bg-white shadow-lg hover:bg-gray-100 md:hidden flex items-center gap-2"
+      className="fixed bottom-6 left-1/2 -translate-x-1/2 z-20 p-3 rounded-full bg-white shadow-lg hover:bg-gray-100 custom:hidden flex items-center gap-2"
       aria-label={aria_label}
       onClick={onClick}
     >

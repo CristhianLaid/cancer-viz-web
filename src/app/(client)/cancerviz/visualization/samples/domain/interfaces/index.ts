@@ -1,3 +1,4 @@
+export * from './SelectSampleFilterProps';
 export * from './sampleBase';
 export * from './sampleCancerType';
 export * from './sampleConstructionProtocol';

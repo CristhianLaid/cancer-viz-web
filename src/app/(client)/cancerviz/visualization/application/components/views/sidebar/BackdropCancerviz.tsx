@@ -11,7 +11,7 @@ export const BackdropCancerviz = ({
 
   return (
     <motion.div
-      className="fixed inset-0 bg-black/20 z-10 md:hidden"
+      className="fixed inset-0 bg-black/20 z-10 custom:hidden"
       onClick={closeSidebar}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}

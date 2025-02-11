@@ -1,30 +1,6 @@
 import React from 'react';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/ui/shadcn/select';
-
-interface FilterOption {
-  id: number;
-  name: string;
-}
-
-interface SelectSampleFilterProps {
-  filters: {
-    countries: FilterOption[];
-    cancerTypes: FilterOption[];
-    dataSources: FilterOption[];
-    constructionProtocols: FilterOption[];
-    sampleTypes: FilterOption[];
-  };
-  selectedFilters: {
-    country: string;
-    cancerType: string;
-    dataSource: string;
-    constructionProtocol: string;
-    sampleType: string;
-  };
-  onFilterChange: (filterName: string, value: string) => void;
-  isLoading: boolean;
-  error: string | null;
-}
+import { SelectFilterSimple } from '@/ui/components/select/SelectFilterSimple';
+import { SelectSampleFilterProps } from '../../domain/interfaces';
 
 export const SelectSampleFilter: React.FC<SelectSampleFilterProps> = ({
   filters,
@@ -37,123 +13,78 @@ export const SelectSampleFilter: React.FC<SelectSampleFilterProps> = ({
   if (error) return <p className="text-red-500">{error}</p>;
 
   return (
-    <div className="space-y-4">
-      <div className="flex flex-col lg:flex-row lg:flex-wrap lg:gap-4">
-        {/* País */}
-        <div className="flex-1 min-w-[200px] lg:max-w-[300px]">
-          <label className="block mb-2">País:</label>
-          <Select
-            value={selectedFilters.country}
-            onValueChange={(value) => onFilterChange("country", value)}
-          >
-            <SelectTrigger>
-              <SelectValue placeholder="Selecciona un país" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem key="all" value="all">
-                Todos
-              </SelectItem>
-              {filters.countries.map((country) => (
-                <SelectItem key={country.id} value={country.name}>
-                  {country.name}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+    <div className="w-full max-w-7xl mx-auto p-4" role="search" aria-label="Sample filters">
+      {isLoading && (
+        <div className="flex items-center justify-center p-8" role="status">
+          <p className="text-lg">Cargando filtros<span className="sr-only">. Por favor espere.</span>...</p>
         </div>
+      )}
 
-        {/* Tipo de Cáncer */}
-        <div className="flex-1 min-w-[200px] lg:max-w-[300px]">
-          <label className="block mb-2">Tipo de cáncer:</label>
-          <Select
-            value={selectedFilters.cancerType}
-            onValueChange={(value) => onFilterChange("cancerType", value)}
-          >
-            <SelectTrigger>
-              <SelectValue placeholder="Selecciona un tipo de cáncer" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem key="all" value="all">
-                Todos
-              </SelectItem>
-              {filters.cancerTypes.map((cancerType) => (
-                <SelectItem key={cancerType.id} value={cancerType.name}>
-                  {cancerType.name}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+      {error && (
+        <div className="bg-red-50 border-l-4 border-red-500 p-4 mb-4" role="alert" aria-live="polite">
+          <p className="text-red-700">{error}</p>
         </div>
+      )}
 
-        {/* Fuente de Datos */}
-        <div className="flex-1 min-w-[200px] lg:max-w-[300px]">
-          <label className="block mb-2">Fuente de datos:</label>
-          <Select
-            value={selectedFilters.dataSource}
-            onValueChange={(value) => onFilterChange("dataSource", value)}
-          >
-            <SelectTrigger>
-              <SelectValue placeholder="Selecciona una fuente de datos" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem key="all" value="all">
-                Todos
-              </SelectItem>
-              {filters.dataSources.map((dataSource) => (
-                <SelectItem key={dataSource.id} value={dataSource.name}>
-                  {dataSource.name}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </div>
+      {!isLoading && !error && (
+        <div className="space-y-6">
+          <div className="grid grid-cols-1 gap-6">
+            <SelectFilterSimple
+              filterType="country"
+              label="País"
+              placeholder="Selecciona un país"
+              options={filters.countries}
+              selectedValue={selectedFilters.country}
+              onChange={onFilterChange}
+              aria-label="Filtrar por país"
+            />
 
-        {/* Protocolo de Construcción */}
-        <div className="flex-1 min-w-[200px] lg:max-w-[300px]">
-          <label className="block mb-2">Protocolo de construcción:</label>
-          <Select
-            value={selectedFilters.constructionProtocol}
-            onValueChange={(value) => onFilterChange("constructionProtocol", value)}
-          >
-            <SelectTrigger>
-              <SelectValue placeholder="Selecciona un protocolo" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem key="all" value="all">
-                Todos
-              </SelectItem>
-              {filters.constructionProtocols.map((protocol) => (
-                <SelectItem key={protocol.id} value={protocol.name}>
-                  {protocol.name}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </div>
+            <SelectFilterSimple
+              filterType="cancerType"
+              label="Tipo de cáncer"
+              placeholder="Selecciona un tipo de cáncer"
+              options={filters.cancerTypes}
+              selectedValue={selectedFilters.cancerType}
+              onChange={onFilterChange}
+              aria-label="Filtrar por tipo de cáncer"
+            />
 
-        {/* Tipo de Muestra */}
-        <div className="flex-1 min-w-[200px] lg:max-w-[300px]">
-          <label className="block mb-2">Tipo de muestra:</label>
-          <Select
-            value={selectedFilters.sampleType}
-            onValueChange={(value) => onFilterChange("sampleType", value)}
-          >
-            <SelectTrigger>
-              <SelectValue placeholder="Selecciona un tipo de muestra" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem key="all" value="all">
-                Todos
-              </SelectItem>
-              {filters.sampleTypes.map((sampleType) => (
-                <SelectItem key={sampleType.id} value={sampleType.name}>
-                  {sampleType.name}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+            <SelectFilterSimple
+              filterType="dataSource"
+              label="Fuente de datos"
+              placeholder="Selecciona una fuente de datos"
+              options={filters.dataSources}
+              selectedValue={selectedFilters.dataSource}
+              onChange={onFilterChange}
+              aria-label="Filtrar por fuente de datos"
+            />
+
+            <SelectFilterSimple
+              filterType="constructionProtocol"
+              label="Protocolo de construcción"
+              placeholder="Selecciona un protocolo"
+              options={filters.constructionProtocols}
+              selectedValue={selectedFilters.constructionProtocol}
+              onChange={onFilterChange}
+              aria-label="Filtrar por protocolo de construcción"
+            />
+
+            <SelectFilterSimple
+              filterType="sampleType"
+              label="Tipo de muestra"
+              placeholder="Selecciona un tipo de muestra"
+              options={filters.sampleTypes}
+              selectedValue={selectedFilters.sampleType}
+              onChange={onFilterChange}
+              aria-label="Filtrar por tipo de muestra"
+            />
+          </div>
+
+          <div className="text-sm text-gray-500 mt-4">
+            <p>* Todos los campos son opcionales. Selecciona "Todos" para ver todos los resultados.</p>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };

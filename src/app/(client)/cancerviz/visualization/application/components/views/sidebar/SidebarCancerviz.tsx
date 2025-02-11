@@ -24,7 +24,7 @@ export const SidebarCancerviz = ({
         damping: 15,
       }}
       className={`
-        fixed md:sticky top-0 z-20 
+        fixed custom:sticky top-0 z-20 
         h-screen
         bg-white 
         shadow-lg md:shadow-none
@@ -50,25 +50,26 @@ export const SidebarCancerviz = ({
           </button>
         </div>
 
-        {ComponentselecteFilters}
-
         {isOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            className="mt-6 space-y-6"
-          >
-            <Button
-              variant="outline"
-              onClick={onResetFilters}
-              className="w-full"
+          <>
+            {ComponentselecteFilters}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              className="mt-6 space-y-6"
             >
-              <X className="w-5 h-5 mr-2 text-gray-500" />
-              Restablecer filtros
-            </Button>
-          </motion.div>
+              <Button
+                variant="outline"
+                onClick={onResetFilters}
+                className="w-full"
+              >
+                <X className="w-5 h-5 mr-2 text-gray-500" />
+                Restablecer filtros
+              </Button>
+            </motion.div>
+          </>
         )}
       </div>
     </motion.aside>
