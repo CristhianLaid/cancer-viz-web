@@ -1,6 +1,5 @@
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/ui/shadcn/dialog";
 
-
 interface DialogSimpleProps {
   title: string;
   description: string;
@@ -8,6 +7,7 @@ interface DialogSimpleProps {
   isOpen: boolean;
   toggleDialog: () => void;
 }
+
 export const DialogSimple = ({
   children,
   isOpen,
@@ -17,7 +17,7 @@ export const DialogSimple = ({
 }: DialogSimpleProps) => {
   return (
     <Dialog open={isOpen} onOpenChange={toggleDialog}>
-      <DialogContent className="bg-white rounded-lg shadow-lg p-6 max-w-lg mx-auto">
+      <DialogContent className="bg-white rounded-lg shadow-lg p-6 w-auto h-auto min-w-[300px] max-w-full mx-auto">
         <DialogHeader>
           <DialogTitle className="text-lg font-bold">{title}</DialogTitle>
           <DialogDescription className="text-sm text-gray-500">

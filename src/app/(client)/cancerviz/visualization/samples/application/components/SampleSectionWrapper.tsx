@@ -5,12 +5,14 @@ import { SidebarConteinerCancerviz } from "../../../application/components/Sideb
 import { SelectSampleFilter } from "./SampleSectionFilter";
 import { SampleSection } from "./SampleSection";
 import { useDialogSimple } from "@/ui/hooks/useDialogSimple";
-import { DialogSimple } from "@/ui/components/dialog/DialogSimple";
+
 import { useState } from "react";
 import { Button } from "@/ui/shadcn/button";
 import useAuthStore from "@/ui/store/authStore";
 import { DeleteCancerviz } from "../../[idCancerviz]/application/delete/DeleteCancerviz";
+import { DialogSimple } from "@/ui/components/dialog/DialogSimple";
 import { CreateCancerviz } from "../../[idCancerviz]/application/create/CreateCancerviz";
+
 
 export const SampleSectionWrapper = () => {
   const {
