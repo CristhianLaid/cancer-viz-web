@@ -10,8 +10,16 @@ import { useSampleFilterData } from "../hooks";
 import { SampleTable } from "./table/SampleTable";
 import { PaginationControls } from "../../../application/components/pagination/PaginationControls";
 
-export const SampleSection = ({ filters }: { filters: { [key: string]: string } }) => {
-  const { currentPage, limit, offset , handlePageChange, handleLimitChange } = usePagination();
+export const SampleSection = ({
+  filters,
+  onEditClick,
+  onDeleteClick
+}: {
+  filters: { [key: string]: string };
+  onEditClick: (id: number) => void;
+  onDeleteClick: (id: number) => void;
+}) => {
+  const { currentPage, limit, offset, handlePageChange, handleLimitChange } = usePagination();
 
   const { data, total, isLoading, error, totalPages } = useSampleFilterData(filters, limit, offset);
 
@@ -49,7 +57,7 @@ export const SampleSection = ({ filters }: { filters: { [key: string]: string } 
         )}
       </div>
 
-      <SampleTable data={data} isLoading={isLoading} />
+      <SampleTable data={data} isLoading={isLoading} onEditClick={onEditClick} onDeleteClick={onDeleteClick} />
 
       {totalPages > 1 && (
         <div className="flex flex-col items-center justify-center px-6 py-4 gap-1 sm:flex-row border-t border-border bg-slate-50/50">
