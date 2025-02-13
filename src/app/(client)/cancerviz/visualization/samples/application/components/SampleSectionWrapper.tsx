@@ -9,6 +9,8 @@ import { DialogSimple } from "@/ui/components/dialog/DialogSimple";
 import { useState } from "react";
 import { Button } from "@/ui/shadcn/button";
 import useAuthStore from "@/ui/store/authStore";
+import { DeleteCancerviz } from "../../[idCancerviz]/application/delete/DeleteCancerviz";
+import { CreateCancerviz } from "../../[idCancerviz]/application/create/CreateCancerviz";
 
 export const SampleSectionWrapper = () => {
   const {
@@ -23,6 +25,7 @@ export const SampleSectionWrapper = () => {
     handleFilterChange,
     handleResetFilters,
   } = useFilters();
+
   const [RegisterId, setRegisterId] = useState<number>();
   const [
     isCreateDataCancerviz,
@@ -96,8 +99,7 @@ export const SampleSectionWrapper = () => {
             title="Add Cancerviz"
             description=""
           >
-            <p>hla</p>
-            {/* TODO: Crear un componente de formulario para agregar */}
+            <CreateCancerviz />
           </DialogSimple>
         )}
 
@@ -109,7 +111,6 @@ export const SampleSectionWrapper = () => {
             description=""
           >
             <p>hla</p>
-            {/* Aquí iría un componente de edición */}
           </DialogSimple>
         )}
 
@@ -120,8 +121,10 @@ export const SampleSectionWrapper = () => {
             title="Delete Cancerviz"
             description="Seguro que deseas eliminar"
           >
-            <p>hla</p>
-            {/* Aquí iría un componente de confirmación para eliminar */}
+            <DeleteCancerviz
+              onClose={closeCreateDeleteCancerviz}
+              cancervizId={RegisterId}
+            />
           </DialogSimple>
         )}
       </div>
