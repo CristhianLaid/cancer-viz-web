@@ -5,7 +5,7 @@ export const NavbarAuthLinks = () => (
       <Link href="/login" className="text-sm text-primary">
         Iniciar sesión
       </Link>
-      <Link href="/register" className="text-sm text-primary">
+      <Link href="/signup" className="text-sm text-primary">
         Registrarse
       </Link>
     </div>
